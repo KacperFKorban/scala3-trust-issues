@@ -1,0 +1,39 @@
+## Tree Definition
+
+ϵ
+-------------
+Leaf ∈ Tree
+
+e ∈ Int
+l ∈ Tree r ∈ Tree
+-------------
+Node l e r ∈ Tree
+
+## Solution
+
+invertTree ∈ Tree → Tree
+invertTree Leaf = Leaf
+invertTree Node l e r = Node (invertTree r) e (invertTree l)
+
+## Double Invert Property
+
+doubleInvert = ∀ t ∈ Tree . t ≡ invertTree (invertTree t)
+
+## Proof by Structural Induction
+
+Given a t ∈ Tree:
+
+  if t ≡ Leaf then:
+
+  invertTree Leaf -- RHS of doubleInvert
+  ≡ Leaf -- By definition of invertTree
+
+  otherwise, if t ≡ Node l e r then
+  IH₁: r ≡ invertTree (invertTree r)
+  IH₂: l ≡ invertTree (invertTree l)
+
+  invertTree (invertTree (Node l e r)) -- RHS of doubleInvert
+  ≡ invertTree (Node (invertTree r) e (invertTree l)) -- By definition of invertTree
+  ≡ Node (invertTree (invertTree l)) e (invertTree (invertTree r)) -- By definition of invertTree
+  ≡ Node l e (invertTree (invertTree r)) -- By IH₁
+  ≡ Node l e r -- By IH₂
