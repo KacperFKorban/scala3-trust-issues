@@ -25,7 +25,8 @@ Given a t ∈ Tree:
 
   if t ≡ Leaf then:
 
-  invertTree Leaf -- RHS of doubleInvert
+  invertTree (invertTree Leaf) -- RHS of doubleInvert
+  ≡ invertTree Leaf -- By definition of invertTree
   ≡ Leaf -- By definition of invertTree
 
   otherwise, if t ≡ Node l e r then
